@@ -1,0 +1,75 @@
+# Создайте функцию, которая создаёт файлы с указанным расширением.
+# Функция принимает следующие параметры:
+# ✔ расширение
+# ✔ минимальная длина случайно сгенерированного имени, по умолчанию 6
+# ✔ максимальная длина случайно сгенерированного имени, по умолчанию 30
+# ✔ минимальное число случайных байт, записанных в файл, по умолчанию 256
+# ✔ максимальное число случайных байт, записанных в файл, по умолчанию 4096
+# ✔ количество файлов, по умолчанию 42
+# ✔ Имя файла и его размер должны быть в рамках переданного диапазона.
+
+from random import randint, choices, randbytes
+from string import ascii_letters
+import os
+from pathlib import Path
+#
+#
+# def create_file(extension: str, min_len_name: int = 6, max_len_name: int = 30,
+#                 min_size_file: int = 256, max_size_file: int = 4096, amount_file: int = 2) -> None:
+#     for _ in range(amount_file):
+#         len_name = randint(min_len_name, max_len_name)
+#         file_name = ''.join(choices(ascii_letters, k=len_name)) + extension
+#         size = randint(min_size_file, max_size_file)
+#         with open(file_name, 'wb') as f:
+#             f.write(randbytes(size))
+#
+#
+# def gen_files(data: dict):
+#     for key, val in data.items():
+#         create_file(key, amount_file=val)
+#
+#
+# my_dict = {
+#     '.txt': 2,
+#     '.pdf': 2,
+#     '.doc': 2,
+# }
+# gen_files(my_dict)
+#
+#
+# def create_dir(name_dir: str):
+#     name = Path(Path.cwd() / name_dir)
+#     if not name.exists():
+#         name.mkdir()
+#     os.chdir(name)
+#     gen_files(my_dict)
+#
+#
+# create_dir('kek')
+
+
+mkdir_name = ['video', 'music', 'images', 'docs']
+foto_files = ['jpg', 'jpeg', 'png']
+music_files = ['mp3', 'wav']
+doc_files = ['doc', 'txt', 'odt']
+video_files = ['mp4', 'mov']
+
+
+def dir_sort(name_list: list[str], images: list[str], music: list[str], video: list[str], docs: list[str]) -> None:
+    file_list = [obj for obj in os.listdir() if os.path.isfile(obj)]
+    dir_list = [obj for obj in os.listdir() if os.path.isdir(obj)]
+    for i in name_list:
+        if i not in dir_list:
+            os.mkdir(i)
+
+    for file_ in file_list:
+        if file_.split('.')[1] in images:
+            os.replace(file_, os.path.join(os.getcwd(), 'images', file_))
+        elif file_.split('.')[1] in music:
+            os.replace(file_, os.path.join(os.getcwd(), 'music', file_))
+        elif file_.split('.')[1] in video:
+            os.replace(file_, os.path.join(os.getcwd(), 'video', file_))
+        elif file_.split('.')[1] in docs:
+            os.replace(file_, os.path.join(os.getcwd(), 'docs', file_))
+
+dir_sort(mkdir_name, foto_files, music_files, video_files, doc_files)
