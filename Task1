@@ -48,7 +48,7 @@ from pathlib import Path
 # create_dir('kek')
 
 
-mkdir_name = ['video', 'music', 'images', 'docs']
+mkdir_name = ['video', 'music', 'images', 'doc']
 foto_files = ['jpg', 'jpeg', 'png']
 music_files = ['mp3', 'wav']
 doc_files = ['doc', 'txt', 'odt']
