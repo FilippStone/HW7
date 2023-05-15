@@ -1,0 +1,37 @@
+# Решить задачи, которые не успели решить на семинаре.
+# Напишите функцию группового переименования файлов. Она должна:
+# принимать параметр желаемое конечное имя файлов. При переименовании в конце имени добавляется порядковый номер.
+# принимать параметр количество цифр в порядковом номере.
+# принимать параметр расширение исходного файла.
+# Переименование должно работать только для этих файлов внутри каталога.
+# принимать параметр расширение конечного файла.
+# принимать диапазон сохраняемого оригинального имени.
+# Например для диапазона [3, 6] берутся буквы с 3 по 6 из исходного имени файла.
+# К ним прибавляется желаемое конечное имя, если оно передано. Далее счётчик файлов и расширение.
+# 3.Соберите из созданных на уроке и в рамках домашнего задания функций пакет для работы с файлами.
+import os
+
+
+def rename_file_name(files_list: list, final_name: str, count: int, orig_extension: str, final_extension: str,
+                     orig_name_range: list):
+    num = 0
+    for obj in files_list:
+        exten = obj.split(".")
+        if exten[1] == orig_extension:
+            part_name = obj[orig_name_range[0] - 1: orig_name_range[1] - 1]
+            num += 1
+            temp = len(str(num))
+            number = ''
+            for j in range(count - temp):
+                number += '0'
+            number += str(num)
+            new_name = f'{part_name}{final_name}{number}.{final_extension}'
+            print(f'{obj= }')
+            print(f'{new_name= }')
+            os.rename(f'{obj}', f'{new_name}')
+            print('--------------')
+        else:
+            print(f'{obj= }')
+
+files_list = ['grSHqkcsicRagYPTqLNOKofbXqBRp.txt', 'YCBYxyOzIabEqndCsiTukiJhB.txt', 'WdLqkmPYWHJn.pdf']
+rename_file_name(files_list, '_TEST_', 3, 'txt', 'pdf', [3, 6])
